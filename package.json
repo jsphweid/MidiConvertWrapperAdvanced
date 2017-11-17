@@ -6,7 +6,11 @@
   "scripts": {
     "start": "npm run clean && webpack --progress --colors --watch",
     "build": "npm run clean && webpack --progress --colors",
-    "clean": "rm -rf build/"
+    "clean": "rm -rf build/",
+    "test": "npm run lint && jest -t",
+    "test:dev": "jest --watchAll -t",
+    "test:coverage": "jest -t --coverage",
+    "lint": "tslint -p ./tsconfig.json"
   },
   "repository": {
     "type": "git",
@@ -17,11 +21,25 @@
   "bugs": {
     "url": "https://github.com/jsphweid/MidiConvertWrapper/issues"
   },
+  "jest": {
+    "setupFiles": [],
+    "moduleFileExtensions": ["ts", "js"],
+    "transform": {
+      "\\.(ts)$": "./node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/src/.*\\.test.(ts|js)$"
+  },
   "homepage": "https://github.com/jsphweid/MidiConvertWrapper#readme",
   "devDependencies": {
+    "@types/jest": "^21.1.6",
     "@types/webpack": "^3.0.14",
     "awesome-typescript-loader": "^3.2.3",
+    "jest": "^21.2.1",
     "midiconvert": "^0.4.1",
+    "ts-jest": "^21.2.2",
+    "tslint": "^5.8.0",
+    "tslint-config-airbnb": "^5.4.2",
+    "tslint-eslint-rules": "^4.1.1",
     "typescript": "^2.5.3",
     "webpack": "^3.8.1"
   }

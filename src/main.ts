@@ -29,6 +29,14 @@ if (secondArg && (destinationPathObj.ext !== '.json' || !existsSync(destinationP
 
 const finalDestination: string = secondArg || `${join(sourcePathObj.dir, sourcePathObj.name)}.json`
 
+// create a map / object with keys that represent the buffer, exclude partial buffers
+// iterate through each track
+// // iterate through each event
+// // // for each even
+// // //
+// // //
+
+
 try {
 
     const midiFile: any = readFileSync(firstArg, 'binary')
