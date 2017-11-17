@@ -1,0 +1,28 @@
+{
+  "name": "midi-convert-wrapper-advanced",
+  "version": "0.1.0",
+  "description": "Advanced wrapper over MidiConvert project to convert into stream-able ready events for NN consumption.",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "npm run clean && webpack --progress --colors --watch",
+    "build": "npm run clean && webpack --progress --colors",
+    "clean": "rm -rf build/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jsphweid/MidiConvertWrapper.git"
+  },
+  "author": "Joseph Weidinger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jsphweid/MidiConvertWrapper/issues"
+  },
+  "homepage": "https://github.com/jsphweid/MidiConvertWrapper#readme",
+  "devDependencies": {
+    "@types/webpack": "^3.0.14",
+    "awesome-typescript-loader": "^3.2.3",
+    "midiconvert": "^0.4.1",
+    "typescript": "^2.5.3",
+    "webpack": "^3.8.1"
+  }
+}
