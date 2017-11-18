@@ -226,3 +226,78 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
 
 
 })
+
+describe('event processor with buffer size 512 and sampling rate 44100', () => {
+
+    const eventProcessor: EventProcessor = new EventProcessor(512, 44100)
+    let note: Note
+
+    describe('when a note makes 3 events', () => {
+
+        beforeEach(() => {
+            note = {
+                midi: 60,
+                time: 500 / 44100,
+                name: 'C4',
+                velocity: 1,
+                duration: 800 / 44100
+            }
+        })
+
+        afterEach(() => {
+            note = null
+        })
+
+        it('should make 3 events', () => {
+            expect(eventProcessor.processNoteIntoEvents(note).length).toBe(3)
+        })
+
+        it('should make 3 events with correct data', () => {
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
+            expect(events).toEqual([
+                new Map([[0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 12 }]]),
+                new Map([[512, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 12, sampleEndIndex: 524 }]]),
+                new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 524, sampleEndIndex: 800 }]])
+            ])
+        })
+
+    })
+})
+
+describe('event processor with buffer size 20 and sampling rate 40', () => {
+
+    const eventProcessor: EventProcessor = new EventProcessor(20, 40)
+    let note: Note
+
+    describe('when a note makes 4 events', () => {
+
+        beforeEach(() => {
+            note = {
+                midi: 60,
+                time: 30 / 40,
+                name: 'C4',
+                velocity: 1,
+                duration: 55 / 40
+            }
+        })
+
+        afterEach(() => {
+            note = null
+        })
+
+        it('should make 4 events', () => {
+            expect(eventProcessor.processNoteIntoEvents(note).length).toBe(4)
+        })
+
+        it('should make 4 events with correct data', () => {
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
+            expect(events).toEqual([
+                new Map([[20, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 10 }]]),
+                new Map([[40, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 10, sampleEndIndex: 30 }]]),
+                new Map([[60, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 30, sampleEndIndex: 50 }]]),
+                new Map([[80, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 50, sampleEndIndex: 55 }]])
+            ])
+        })
+
+    })
+})
