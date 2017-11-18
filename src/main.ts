@@ -1,6 +1,8 @@
-import { MIDI, parse as parseMidi } from 'midiconvert'
+import { MIDI, Note, parse as parseMidi, Track } from 'midiconvert'
 import { ParsedPath, parse, join } from 'path'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
+import { EventType, MultipleEventMap, SingleEventMap } from './types'
+import EventProcessor from './event-processor'
 
 if (process.argv.length !== 3 && process.argv.length !== 4) {
     console.error(`
@@ -29,27 +31,22 @@ if (secondArg && (destinationPathObj.ext !== '.json' || !existsSync(destinationP
 
 const finalDestination: string = secondArg || `${join(sourcePathObj.dir, sourcePathObj.name)}.json`
 
-// create a map / object with keys that represent the buffer, exclude partial buffers
-// iterate through each track
-// // iterate through each event
-// // // for each even
-// // //
-// // //
+const midiFile: any = readFileSync(firstArg, 'binary')
+const parsedMidi: MIDI = parseMidi(midiFile)
+const grandMap: MultipleEventMap = new Map<number, EventType[]>()
+
+parsedMidi.tracks.forEach((track: Track) => {
+    track.notes.forEach((note: Note) => {
+        const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+        // take events and append each to the grandMap of things
+        // reconsider if this is the best way to handle the events after they have been processed...
+    })
+})
+console.log(JSON.stringify(grandMap))
 
 
-try {
-
-    const midiFile: any = readFileSync(firstArg, 'binary')
-    const parsedMidi: MIDI = parseMidi(midiFile)
-    const serializedJson: string = JSON.stringify(parsedMidi)
-
-    writeFileSync(finalDestination, serializedJson, 'utf8')
 
 
-} catch (error) {
+const serializedJson: string = JSON.stringify(grandMap)
+writeFileSync(finalDestination, serializedJson, 'utf8')
 
-    console.error('There was an error transforming this midi file to JSON. Error immediately follows...')
-    console.error(error)
-    process.exit(1)
-
-}
