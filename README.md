@@ -7,6 +7,17 @@ Some useful commands:
  - `npm run test` - runs all linting and tests once
  - `npm run test:dev` - runs only the tests but in watch mode
 
+To use, cd into build/ directory and call like this:
+```
+node MidiConvertWrapperAdvanced.js /path/to/midi/file.mid /path/to/desired/json/output.json 1024 44100
+```
+
+The 4 required arguments are:
+ 1. midi input file path
+ 2. json output file path
+ 3. buffer size
+ 4. sampling rate
+
 The json generated looks like this:
 ```
 {
