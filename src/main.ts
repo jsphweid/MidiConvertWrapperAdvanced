@@ -1,7 +1,7 @@
 import { MIDI, Note, parse as parseMidi, Track } from 'midiconvert'
 import { ParsedPath, parse, join } from 'path'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
-import { EventType, MultipleEventMap, SingleEventMap } from './types'
+import { EventType, SingleEventsMap } from './types'
 import EventProcessor from './event-processor'
 
 if (process.argv.length !== 6) {
@@ -37,22 +37,24 @@ const finalDestination: string = outputJsonFilePathArg || `${join(sourcePathObj.
 
 const midiFile: any = readFileSync(inputMidiFilePathArg, 'binary')
 const parsedMidi: MIDI = parseMidi(midiFile)
-const grandMap: MultipleEventMap = new Map<number, EventType[]>()
+const finalJson: any = {}
 
 const eventProcessor: EventProcessor = new EventProcessor(parseInt(bufferSizeArg), parseInt(samplingRateArg))
 
 parsedMidi.tracks.forEach((track: Track) => {
     track.notes.forEach((note: Note) => {
-        const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
-        // take events and append each to the grandMap of things
-        // reconsider if this is the best way to handle the events after they have been processed...
+
+        const eventMaps: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
+
+        eventMaps.forEach((value: EventType, key: number) => {
+            const existingContents: EventType[] = finalJson[key]
+            const newContents: EventType[] = existingContents || []
+            newContents.push(value)
+            finalJson[key] = newContents
+        })
     })
 })
-console.log(JSON.stringify(grandMap))
 
-
-
-
-const serializedJson: string = JSON.stringify(grandMap)
+const serializedJson: string = JSON.stringify(finalJson)
 writeFileSync(finalDestination, serializedJson, 'utf8')
 

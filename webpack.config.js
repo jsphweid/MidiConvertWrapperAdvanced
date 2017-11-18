@@ -5,7 +5,7 @@ module.exports = {
     target: 'node',
 
     entry: {
-        MidiConvertWrapper: './src/main.ts'
+        MidiConvertWrapperAdvanced: './src/main.ts'
     },
 
     output: {

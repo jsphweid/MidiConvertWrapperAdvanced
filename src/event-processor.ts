@@ -1,5 +1,5 @@
 import { Note } from 'midiconvert'
-import { SingleEventMap } from './types'
+import { SingleEventsMap } from './types'
 
 export default class EventProcessor {
 
@@ -11,7 +11,7 @@ export default class EventProcessor {
         this.samplingRate = iSamplingRate
     }
 
-    processNoteIntoEvents(note: Note): SingleEventMap[] {
+    processNoteIntoEvents(note: Note): SingleEventsMap {
         const pianoNoteNum: number = note.midi - 20
         const velocity: number = note.velocity
         const noteStartIndex: number = Math.floor(note.time * this.samplingRate)
@@ -22,7 +22,7 @@ export default class EventProcessor {
         const noteEndIndex: number = noteStartIndex + durationInSamples
         const numOfBufferLinesToPassThrough: number = Math.floor((offsetFromBufferOnLeft + durationInSamples) / this.bufferSize)
 
-        const ret: SingleEventMap[] = []
+        const ret: SingleEventsMap = new Map()
 
         for (let i = 0; i <= numOfBufferLinesToPassThrough; i++) {
             const isFirstOne: boolean = i === 0
@@ -36,7 +36,7 @@ export default class EventProcessor {
             const sampleEndIndex: number = sampleStartIndex + wavEndIndex - wavStartIndex
 
             if (sampleStartIndex !== sampleEndIndex) {
-                ret.push(new Map([[belongsToBuffer, { pianoNoteNum, velocity, sampleStartIndex, sampleEndIndex }]]))
+                ret.set(belongsToBuffer, { pianoNoteNum, velocity, sampleStartIndex, sampleEndIndex, wavStartIndex })
             }
         }
 

@@ -3,7 +3,8 @@ export interface EventType {
     velocity: number
     sampleStartIndex: number
     sampleEndIndex: number
+    wavStartIndex: number
 }
 
-export type SingleEventMap = Map<number, EventType>
-export type MultipleEventMap = Map<number, EventType[]>
+export type SingleEventsMap = Map<number, EventType>
+
