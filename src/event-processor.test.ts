@@ -2,8 +2,9 @@ import { Note } from 'midiconvert'
 import EventProcessor from './event-processor'
 import { SingleEventMap } from './types'
 
-describe('event processor with buffer size 1024', () => {
+describe('event processor with buffer size 1024 and sampling rate 44100', () => {
 
+    const eventProcessor: EventProcessor = new EventProcessor(1024, 44100)
     let note: Note
 
     describe('when a note makes 1 event', () => {
@@ -24,11 +25,11 @@ describe('event processor with buffer size 1024', () => {
 
 
         it('should make 1 event', () => {
-            expect(EventProcessor.processNoteIntoEvents(note).length).toBe(1)
+            expect(eventProcessor.processNoteIntoEvents(note).length).toBe(1)
         })
 
         it('should make 1 event with correct data: 1', () => {
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1000 }]])
             ])
@@ -42,7 +43,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 0.5,
                 duration: 300 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[1024, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 300 }]])
             ])
@@ -56,7 +57,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 0.5,
                 duration: 1024 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[3072, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 1024 }]])
             ])
@@ -70,7 +71,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 0.5,
                 duration: 1 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[3072, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 1 }]])
             ])
@@ -97,11 +98,11 @@ describe('event processor with buffer size 1024', () => {
         })
 
         it('should make 2 events', () => {
-            expect(EventProcessor.processNoteIntoEvents(note).length).toBe(2)
+            expect(eventProcessor.processNoteIntoEvents(note).length).toBe(2)
         })
 
         it('should make 2 events with correct data: 1', () => {
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024 }]]),
                 new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 1500 }]])
@@ -116,7 +117,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 1,
                 duration: 1500 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1014 }]]),
                 new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1014, sampleEndIndex: 1500 }]])
@@ -131,7 +132,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 1,
                 duration: 2048 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024 }]]),
                 new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 2048 }]])
@@ -146,7 +147,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 1,
                 duration: 100 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 24 }]]),
                 new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 24, sampleEndIndex: 100 }]])
@@ -172,11 +173,11 @@ describe('event processor with buffer size 1024', () => {
         })
 
         it('should make 3 events', () => {
-            expect(EventProcessor.processNoteIntoEvents(note).length).toBe(3)
+            expect(eventProcessor.processNoteIntoEvents(note).length).toBe(3)
         })
 
         it('should make 3 events with correct data: 1', () => {
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024 }]]),
                 new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 2048 }]]),
@@ -192,7 +193,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 1,
                 duration: 2000 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 48 }]]),
                 new Map([[2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 48, sampleEndIndex: 1072 }]]),
@@ -212,7 +213,7 @@ describe('event processor with buffer size 1024', () => {
                 velocity: 1,
                 duration: 3000 / 44100
             }
-            const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+            const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual([
                 new Map([[1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 4 }]]),
                 new Map([[2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 4, sampleEndIndex: 1028 }]]),

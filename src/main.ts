@@ -4,40 +4,46 @@ import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { EventType, MultipleEventMap, SingleEventMap } from './types'
 import EventProcessor from './event-processor'
 
-if (process.argv.length !== 3 && process.argv.length !== 4) {
+if (process.argv.length !== 6) {
     console.error(`
-        You must pass in one argument that is the midi file you wish to process.
-        Optionally, you may pass in a second argument that is the json file you
-        wish to save the output as.
+        This requires 4 args:
+            1: input to real .mid file
+            2: output to desired .json file
+            3: buffer size
+            4: sampling rate
     `)
     process.exit(1)
 }
 
-const firstArg: string = process.argv[2]
-const secondArg: string = process.argv[3]
+const inputMidiFilePathArg: string = process.argv[2]
+const outputJsonFilePathArg: string = process.argv[3]
+const bufferSizeArg: string = process.argv[4]
+const samplingRateArg: string = process.argv[5]
 
-const sourcePathObj: ParsedPath = parse(firstArg)
-const destinationPathObj: ParsedPath = parse(secondArg || firstArg)
+const sourcePathObj: ParsedPath = parse(inputMidiFilePathArg)
+const destinationPathObj: ParsedPath = parse(outputJsonFilePathArg || inputMidiFilePathArg)
 
-if (sourcePathObj.ext !== '.mid' || !existsSync(firstArg)) {
+if (sourcePathObj.ext !== '.mid' || !existsSync(inputMidiFilePathArg)) {
     console.error('First argument must be a .mid file that really exists.')
     process.exit(1)
 }
 
-if (secondArg && (destinationPathObj.ext !== '.json' || !existsSync(destinationPathObj.dir))) {
+if (outputJsonFilePathArg && (destinationPathObj.ext !== '.json' || !existsSync(destinationPathObj.dir))) {
     console.error('Second argument must be a .json file in a folder that really exists.')
     process.exit(1)
 }
 
-const finalDestination: string = secondArg || `${join(sourcePathObj.dir, sourcePathObj.name)}.json`
+const finalDestination: string = outputJsonFilePathArg || `${join(sourcePathObj.dir, sourcePathObj.name)}.json`
 
-const midiFile: any = readFileSync(firstArg, 'binary')
+const midiFile: any = readFileSync(inputMidiFilePathArg, 'binary')
 const parsedMidi: MIDI = parseMidi(midiFile)
 const grandMap: MultipleEventMap = new Map<number, EventType[]>()
 
+const eventProcessor: EventProcessor = new EventProcessor(parseInt(bufferSizeArg), parseInt(samplingRateArg))
+
 parsedMidi.tracks.forEach((track: Track) => {
     track.notes.forEach((note: Note) => {
-        const events: SingleEventMap[] = EventProcessor.processNoteIntoEvents(note)
+        const events: SingleEventMap[] = eventProcessor.processNoteIntoEvents(note)
         // take events and append each to the grandMap of things
         // reconsider if this is the best way to handle the events after they have been processed...
     })

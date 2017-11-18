@@ -16,7 +16,8 @@
         "import-name": false,
         "object-literal-key-quotes": false,
         "no-increment-decrement": false,
-        "variable-name": [true, "allow-pascal-case"]
+        "variable-name": [true, "allow-pascal-case"],
+        "radix": false
     },
     "rulesDirectory": []
 }
