@@ -31,7 +31,7 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
         it('should make 1 event with correct data: 1', () => {
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1000, wavStartIndex: 0 }]
+                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1000, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -45,7 +45,7 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [1024, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 300, wavStartIndex: 1024 }]
+                [1024, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 300, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -59,7 +59,7 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [3072, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 1024, wavStartIndex: 3072 }]
+                [3072, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 1024, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -73,7 +73,7 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [3072, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 1, wavStartIndex: 4095 }]
+                [3072, { pianoNoteNum: 28, velocity: 0.5, sampleStartIndex: 0, sampleEndIndex: 1, offsetStartIndex: 1023 }]
             ]))
         })
 
@@ -104,8 +104,8 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
         it('should make 2 events with correct data: 1', () => {
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024, wavStartIndex: 0 }],
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 1500, wavStartIndex: 1024 }]
+                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024, offsetStartIndex: 0 }],
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 1500, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -119,8 +119,8 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1014, wavStartIndex: 10 }],
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1014, sampleEndIndex: 1500, wavStartIndex: 1024 }]
+                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1014, offsetStartIndex: 10 }],
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1014, sampleEndIndex: 1500, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -134,8 +134,8 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024, wavStartIndex: 0 }],
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 2048, wavStartIndex: 1024 }]
+                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024, offsetStartIndex: 0 }],
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 2048, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -149,8 +149,8 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 24, wavStartIndex: 1000 }],
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 24, sampleEndIndex: 100, wavStartIndex: 1024 }]
+                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 24, offsetStartIndex: 1000 }],
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 24, sampleEndIndex: 100, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -179,9 +179,9 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
         it('should make 3 events with correct data: 1', () => {
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024, wavStartIndex: 0 }],
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 2048, wavStartIndex: 1024 }],
-                [2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 2048, sampleEndIndex: 2500, wavStartIndex: 2048 }]
+                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 1024, offsetStartIndex: 0 }],
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1024, sampleEndIndex: 2048, offsetStartIndex: 0 }],
+                [2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 2048, sampleEndIndex: 2500, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -195,9 +195,9 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 48, wavStartIndex: 2000 }],
-                [2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 48, sampleEndIndex: 1072, wavStartIndex: 2048 }],
-                [3072, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1072, sampleEndIndex: 2000, wavStartIndex: 3072 }]
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 48, offsetStartIndex: 976 }],
+                [2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 48, sampleEndIndex: 1072, offsetStartIndex: 0 }],
+                [3072, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1072, sampleEndIndex: 2000, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -215,10 +215,10 @@ describe('event processor with buffer size 1024 and sampling rate 44100', () => 
             }
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 4, wavStartIndex: 2044 }],
-                [2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 4, sampleEndIndex: 1028, wavStartIndex: 2048 }],
-                [3072, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1028, sampleEndIndex: 2052, wavStartIndex: 3072 }],
-                [4096, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 2052, sampleEndIndex: 3000, wavStartIndex: 4096 }]
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 4, offsetStartIndex: 1020 }],
+                [2048, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 4, sampleEndIndex: 1028, offsetStartIndex: 0 }],
+                [3072, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 1028, sampleEndIndex: 2052, offsetStartIndex: 0 }],
+                [4096, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 2052, sampleEndIndex: 3000, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -255,9 +255,9 @@ describe('event processor with buffer size 512 and sampling rate 44100', () => {
         it('should make 3 events with correct data', () => {
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 12, wavStartIndex: 500 }],
-                [512, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 12, sampleEndIndex: 524, wavStartIndex: 512 }],
-                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 524, sampleEndIndex: 800, wavStartIndex: 1024 }]
+                [0, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 12, offsetStartIndex: 500 }],
+                [512, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 12, sampleEndIndex: 524, offsetStartIndex: 0 }],
+                [1024, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 524, sampleEndIndex: 800, offsetStartIndex: 0 }]
             ]))
         })
 
@@ -292,10 +292,10 @@ describe('event processor with buffer size 20 and sampling rate 40', () => {
         it('should make 4 events with correct data', () => {
             const events: SingleEventsMap = eventProcessor.processNoteIntoEvents(note)
             expect(events).toEqual(new Map([
-                [20, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 10, wavStartIndex: 30 }],
-                [40, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 10, sampleEndIndex: 30, wavStartIndex: 40 }],
-                [60, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 30, sampleEndIndex: 50, wavStartIndex: 60 }],
-                [80, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 50, sampleEndIndex: 55, wavStartIndex: 80 }]
+                [20, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 0, sampleEndIndex: 10, offsetStartIndex: 10 }],
+                [40, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 10, sampleEndIndex: 30, offsetStartIndex: 0 }],
+                [60, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 30, sampleEndIndex: 50, offsetStartIndex: 0 }],
+                [80, { pianoNoteNum: 40, velocity: 1, sampleStartIndex: 50, sampleEndIndex: 55, offsetStartIndex: 0 }]
             ]))
         })
 

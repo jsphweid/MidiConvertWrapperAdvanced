@@ -34,9 +34,10 @@ export default class EventProcessor {
             const wavEndIndex: number = isLastOne ? (belongsToBuffer + this.bufferSize) : noteEndIndex
             const sampleStartIndex: number = isFirstOne ? 0 : (belongsToBuffer - nearestBufferOnLeft - offsetFromBufferOnLeft)
             const sampleEndIndex: number = sampleStartIndex + wavEndIndex - wavStartIndex
+            const offsetStartIndex: number = wavStartIndex - belongsToBuffer
 
             if (sampleStartIndex !== sampleEndIndex) {
-                ret.set(belongsToBuffer, { pianoNoteNum, velocity, sampleStartIndex, sampleEndIndex, wavStartIndex })
+                ret.set(belongsToBuffer, { pianoNoteNum, velocity, sampleStartIndex, sampleEndIndex, offsetStartIndex })
             }
         }
 

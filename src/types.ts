@@ -3,7 +3,7 @@ export interface EventType {
     velocity: number
     sampleStartIndex: number
     sampleEndIndex: number
-    wavStartIndex: number
+    offsetStartIndex: number
 }
 
 export type SingleEventsMap = Map<number, EventType>
