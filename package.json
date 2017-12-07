@@ -14,24 +14,28 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jsphweid/MidiConvertWrapper.git"
+    "url": "git+https://github.com/jsphweid/MidiConvertWrapperAdvanced.git"
   },
   "author": "Joseph Weidinger",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jsphweid/MidiConvertWrapper/issues"
+    "url": "https://github.com/jsphweid/MidiConvertWrapperAdvanced/issues"
   },
   "jest": {
     "setupFiles": [],
-    "moduleFileExtensions": ["ts", "js"],
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
     "transform": {
       "\\.(ts)$": "./node_modules/ts-jest/preprocessor.js"
     },
     "testRegex": "/src/.*\\.test.(ts|js)$"
   },
-  "homepage": "https://github.com/jsphweid/MidiConvertWrapper#readme",
+  "homepage": "https://github.com/jsphweid/MidiConvertWrapperAdvanced#readme",
   "devDependencies": {
     "@types/jest": "^21.1.6",
+    "@types/node": "^8.0.56",
     "@types/webpack": "^3.0.14",
     "awesome-typescript-loader": "^3.2.3",
     "jest": "^21.2.1",
