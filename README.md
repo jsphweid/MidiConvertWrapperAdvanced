@@ -21,45 +21,68 @@ The 4 required arguments are:
 The json generated looks like this:
 ```
 {
-  "316416": [
+  "104448": [
     {
-      "pianoNoteNum": 61,
-      "velocity": 0.48818897637795,
-      "sampleStartIndex": 17918,
-      "sampleEndIndex": 18656,
-      "wavStartIndex": 316416
-    },
-    {
-      "pianoNoteNum": 46,
-      "velocity": 0.29133858267717,
-      "sampleStartIndex": 17918,
-      "sampleEndIndex": 18656,
-      "wavStartIndex": 316416
-    },
-    {
-      "pianoNoteNum": 49,
-      "velocity": 0.35433070866142,
-      "sampleStartIndex": 17918,
-      "sampleEndIndex": 18656,
-      "wavStartIndex": 316416
+      "pianoNoteNum": 27,
+      "velocity": 0.77952755905512,
+      "sampleStartIndex": 9949,
+      "sampleEndIndex": 10973,
+      "offsetStartIndex": 0
     }
   ],
-  "334848": [
+  "105472": [
     {
-      "pianoNoteNum": 61,
-      "velocity": 0.39370078740157,
+      "pianoNoteNum": 27,
+      "velocity": 0.77952755905512,
+      "sampleStartIndex": 10973,
+      "sampleEndIndex": 11997,
+      "offsetStartIndex": 0
+    }
+  ],
+  "106496": [
+    {
+      "pianoNoteNum": 27,
+      "velocity": 0.77952755905512,
+      "sampleStartIndex": 11997,
+      "sampleEndIndex": 13021,
+      "offsetStartIndex": 0
+    },
+    {
+      "pianoNoteNum": 31,
+      "velocity": 0.47244094488189,
       "sampleStartIndex": 0,
-      "sampleEndIndex": 62,
-      "wavStartIndex": 335810
+      "sampleEndIndex": 106,
+      "offsetStartIndex": 918
+    },
+    {
+      "pianoNoteNum": 18,
+      "velocity": 0.78740157480315,
+      "sampleStartIndex": 0,
+      "sampleEndIndex": 106,
+      "offsetStartIndex": 918
     }
   ],
-  "335872": [
+  "107520": [
     {
-      "pianoNoteNum": 61,
-      "velocity": 0.39370078740157,
-      "sampleStartIndex": 62,
-      "sampleEndIndex": 1086,
-      "wavStartIndex": 335872
+      "pianoNoteNum": 27,
+      "velocity": 0.77952755905512,
+      "sampleStartIndex": 13021,
+      "sampleEndIndex": 14045,
+      "offsetStartIndex": 0
+    },
+    {
+      "pianoNoteNum": 31,
+      "velocity": 0.47244094488189,
+      "sampleStartIndex": 106,
+      "sampleEndIndex": 1130,
+      "offsetStartIndex": 0
+    },
+    {
+      "pianoNoteNum": 18,
+      "velocity": 0.78740157480315,
+      "sampleStartIndex": 106,
+      "sampleEndIndex": 1130,
+      "offsetStartIndex": 0
     }
   ]
 }
