@@ -65,3 +65,11 @@ The json generated looks like this:
 }
 ```
 The key is the buffer and the value is the array of events.
+
+Eventually delete:
+```
+"jsmidgen": "^0.1.5",
+"midi-file-parser": "^1.0.0",
+```
+on resolution of this issue:
+https://github.com/Tonejs/MidiConvert/issues/44

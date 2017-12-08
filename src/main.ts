@@ -57,4 +57,3 @@ parsedMidi.tracks.forEach((track: Track) => {
 
 const serializedJson: string = JSON.stringify(finalJson)
 writeFileSync(finalDestination, serializedJson, 'utf8')
-
