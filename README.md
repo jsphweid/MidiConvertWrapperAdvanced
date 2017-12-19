@@ -96,3 +96,7 @@ Eventually delete:
 ```
 on resolution of this issue:
 https://github.com/Tonejs/MidiConvert/issues/44
+
+
+#TODO
+ - handle files with spaces in them (change to dashes or something)
