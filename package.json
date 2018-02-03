@@ -7,6 +7,7 @@
     "start": "npm run clean && webpack --progress --colors --watch",
     "build": "npm run clean && webpack --progress --colors",
     "clean": "rm -rf build/",
+    "deploy": "npm run build && ./deploy.sh",
     "test": "npm run lint && jest -t",
     "test:dev": "jest --watchAll -t",
     "test:coverage": "jest -t --coverage",
